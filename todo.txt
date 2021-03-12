@@ -1,0 +1,30 @@
+Formularz rejestracyjny
+
+## Treść zadania
+Możesz wybrać między realizacją poniższego zadania, albo rozwojem Twojej aplikacji. W takim przypadku wdróż 
+funkcjonalność walidacji do dowolnego formularza (może i do kilku). Zmiany związane z walidacją stwórz w osobnym 
+branchu i prześlij go do sprawdzenia w formie PR.
+
+https://bootcamp.javastart.pl/files/mceclip0-47.png
+
+Oczekiwane walidacje:
+- Każde pole jest wymagane
+- Imię musi mieć min. 3 znaki
+- Nazwisko musi mieć min. 3 znaki
+- Kod pocztowy powinien mieć format XXX-XX, gdzie X to cyfra
+- Adres email powinien spełniać wymogi poprawnego adresu email
+- Hasło powinno mieć min. 8 znaków
+
+W przypadku nieprawidłowego uzupełnienia formularza użytkownik powinien być o tym poinformowany. Błędy możesz 
+wyświetlać w schludny sposób w wybranym przez siebie miejscu (obok błędnie wypełnionego pola lub wszystkie zgrupowane
+w jednym miejscu). Użytkownik powinien dokładnie wiedzieć jakie pole nie spełniło wymogów i dlaczego. 
+
+
+https://bootcamp.javastart.pl/files/mceclip2-4.png
+
+Dodatkowe (nieobowiązkowe) zadania:
+- dodaj również walidację po stronie przeglądarki, możesz do tego użyć Boostrapa
+- dodaj dodatkową walidację do hasła: min 1 duży znak, 1 mały, 1 znak specjalny
+
+//todo 1. formularz wzorcowy
+//todo 2. obsługa walidacji

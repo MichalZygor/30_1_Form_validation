@@ -1,10 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Formularz</title>
-</head>
-<body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style>
+        .text-color-mz1 {
+            color: darkgreen;
+        }
 
+        .bg-color-mz1 {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container-fluid bg-white shadow-sm mt-5 mb-2 text-color-mz1 fs-4 text-center fw-bolder pt-3 pb-3">
+    Java Start. Zadanie 30_1. Walidacja formularzy
+</div>
+
+<form class="container row pt-3 needs-validation mx-3" novalidate method="post" th:action="@{/rejestracja}"
+      th:object="${user}">
+
+
+    <p class="h3 fw-bolder mb-3">Formularz rejestracyjny</p>
+    <div class="col-md-6 mb-3">
+        <label for="firstName" class="form-label">Imię: </label>
+        <input type="text" class="form-control" id="firstName" placeholder="First name" required
+               minlength="3" th:field="*{firstName}">
+        <div class="invalid-feedback">
+            Proszę wpisać dane!
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="lastName" class="form-label">Nazwisko: </label>
+        <input type="text" class="form-control" id="lastName" placeholder="Last name" required
+               minlength="3" th:field="*{lastName}">
+        <div class="invalid-feedback">
+            Proszę wpisać dane!
+        </div>
+    </div>
+
+    <div class="col-md12 mb-3">
+        <label for="address">Ulica, numer domu i mieszkania: </label>
+        <input type="text" class="form-control" id="address"
+               placeholder="Adres w formacie: ulica nr budynku/nr mieszkania" required
+               minlength="3" th:field="*{address}">
+        <div class="invalid-feedback">
+            Proszę wpisać dane!
+        </div>
+    </div>
+
+
+    <div class="col-md-2 mb-3">
+        <label for="zip">Kod pocztowy: </label>
+        <input type="text" class="form-control" id="zip" placeholder="Kod pocztowy w formacie XX-XXX" required
+               minlength="5" maxlength="6" th:field="*{zip}">
+        <div class="invalid-feedback">
+            Proszę wpisać dane!
+        </div>
+    </div>
+    <div class="col-md-10 mb-3">
+        <label for="city">Masto: </label>
+        <input type="text" class="form-control" id="city" placeholder="Miasto" required
+               minlength="2" th:field="*{city}">
+        <div class="invalid-feedback">
+            Proszę wpisać dane!
+        </div>
+    </div>
+
+
+    <div class="col-md12 mb-3">
+        <label for="mail">Adres email: </label>
+        <input type="text" class="form-control" id="mail"
+               placeholder="email@example.com" required
+               minlength="3" th:field="*{mail}">
+        <div id="emailHelp" class="form-text">Nikomu nie udostępniamy Twojego adresu email.</div>
+        <div class="invalid-feedback">
+            Proszę wpisać dane!
+        </div>
+    </div>
+
+
+    <div class="col-md-12 mb-3">
+        <label for="password">Hasło: </label>
+        <input type="password" class="form-control" id="password" placeholder="" required
+               minlength="3" name="password">
+        <p th:errors="*{password}">Błędne hasło!</p>
+        <div class="invalid-feedback">
+            Proszę wpisać dane!
+        </div>
+    </div>
+
+
+    <div class="col-12 mb-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value=""  id="gridCheck" required>
+            <label class="form-check-label" for="gridCheck">
+                Zgadzam się na warunki przedstawione w <a href="#" class="link-primary">regulaminie</a>.
+            </label>
+            <div class="invalid-feedback">
+                Ten punkt jest obligatoryjny!
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-secondary" type="reset">Wyczyść formularz!</button>
+        <button class="btn btn-primary" type="submit">Rejestracja!</button>
+    </div>
+
+
+</form>
+<div class="container-fluid bg-color-mz1 text-secondary shadow-sm mt-5 mb-2 fs-6 text-center pt-3 pb-3">
+    Michał Zygor, 11.03.2021
+</div>
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 </body>
 </html>
