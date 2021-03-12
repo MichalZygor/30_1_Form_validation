@@ -1,10 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Formularz</title>
-</head>
-<body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style>
+        .text-color-mz1 {
+            color: darkgreen;
+        }
 
+        .bg-color-mz1 {
+            background-color: #e0e0e0;
+        }
+
+        p.text-danger {
+            font-size: .875em;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container-fluid bg-white shadow-sm mt-5 mb-2 text-color-mz1 fs-4 text-center fw-bolder pt-3 pb-3">
+    Java Start. Zadanie 30_1. Walidacja formularzy
+</div>
+<form class="container row pt-3 needs-validation mx-3" novalidate method="post" th:action="@{/add-user }"
+      th:object="${user}">
+    <p class="h3 fw-bolder mb-3">Formularz rejestracyjny</p>
+    <div class="col-md-6 mb-3">
+        <label for="firstName" class="form-label">Imię: </label>
+        <input type="text" class="form-control" id="firstName" placeholder="First name" required
+               minlength="3" th:field="*{firstName}">
+        <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">replaced error
+            text</p>
+        <div class="invalid-feedback">
+            Pole nie może być puste<br/>
+            Pole musi mieć co najmniej 3 znaki
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="lastName" class="form-label">Nazwisko: </label>
+        <input type="text" class="form-control" id="lastName" placeholder="Last name" required
+               minlength="3" th:field="*{lastName}">
+        <p class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">replaced error text</p>
+        <div class="invalid-feedback">
+            Pole nie może być puste<br/>
+            Pole musi mieć co najmniej 3 znaki
+        </div>
+    </div>
+    <div class="col-md12 mb-3">
+        <label for="address">Ulica, numer domu i mieszkania: </label>
+        <input type="text" class="form-control" id="address"
+               placeholder="Adres w formacie: ulica nr budynku/nr mieszkania" required
+               minlength="1" th:field="*{address}">
+        <p class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">replaced error text</p>
+        <div class="invalid-feedback">
+            Pole nie może być puste
+        </div>
+    </div>
+    <div class="col-md-2 mb-3">
+        <label for="zip">Kod pocztowy: </label>
+        <input type="text" class="form-control" id="zip" placeholder="XX-XXX" required
+               minlength="4" maxlength="6" pattern="^\d{2}-\d{3}$" th:field="*{zip}">
+        <p class="text-danger" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}">replaced error text</p>
+        <div class="invalid-feedback">
+            Pole nie może być puste<br/>
+            Wpisz poprawny kod pocztowy
+        </div>
+    </div>
+    <div class="col-md-10 mb-3">
+        <label for="city">Masto: </label>
+        <input type="text" class="form-control" id="city" placeholder="Miasto" required
+               minlength="2" th:field="*{city}">
+        <p class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">replaced error text</p>
+        <div class="invalid-feedback">
+            Pole nie może być puste
+        </div>
+    </div>
+    <div class="col-md12 mb-3">
+        <label for="mail">Adres email: </label>
+        <input type="text" class="form-control" id="mail" placeholder="email@example.com" required minlength="5"
+               pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" th:field="*{email}">
+        <div id="emailHelp" class="form-text">Nikomu nie udostępniamy Twojego adresu email.</div>
+        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">replaced error text</p>
+        <div class="invalid-feedback">
+            Adres e-mail musi być odpowiednio sformatowany
+        </div>
+    </div>
+    <div class="col-md-12 mb-3">
+        <label for="password">Hasło: </label>
+        <input type="password" class="form-control" id="password" placeholder="" required minlength="8" name="password"
+               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$" th:field="*{password}">
+        <p class="text-danger" th:if="${#fields.hasErrors('password')}"
+           th:errors="*{password}">replaced error text</p>
+        <div class="invalid-feedback">
+            Hasło musi mieć co najmniej 8 znaków<br/>
+            Hasło musi zawierać min. 1 znak mały, duży i znak specjalny<br/>
+            Pole nie może być puste
+        </div>
+    </div>
+    <div class="col-12 mb-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck" required
+                   th:field="*{confirmedConditions}">
+            <label class="form-check-label" for="gridCheck">
+                Zgadzam się na warunki przedstawione w <a href="#" class="link-primary">regulaminie</a>.
+            </label>
+            <p class="text-danger" th:if="${#fields.hasErrors('confirmedConditions')}"
+               th:errors="*{confirmedConditions}">replaced error text</p>
+            <div class="invalid-feedback">
+                Akceptacja regulaminu jest wymagana
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-secondary" type="reset">Wyczyść formularz!</button>
+        <button class="btn btn-primary" type="submit">Rejestracja!</button>
+    </div>
+</form>
+<div class="container-fluid bg-color-mz1 text-secondary shadow-sm mt-5 mb-2 fs-6 text-center pt-3 pb-3">
+    Michał Zygor, 11.03.2021
+</div>
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 </body>
 </html>
